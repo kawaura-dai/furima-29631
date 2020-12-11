@@ -5,8 +5,10 @@
 | Column   | Type   | Options     |
 | -------- | ------ | ----------- |
 | name     | string | null: false |
+| name_kana| string | null: false |
 | email    | string | null: false |
 | password | string | null: false |
+| birthday | string | null: false |
 
 ##  Association
 
@@ -15,12 +17,19 @@
 
 ## items テーブル
 
-| Column  | Type       | Options                        |
-| ------  | ---------- | -----------------------------  |
-| image   | string     | null: false                    |
-| text    | string     | null: false                    |
-| buy_id  | references | null: false, foreign_key: true |
-| user_id | references | null: false, foreign_key: true |
+| Column         | Type       | Options                        |
+| -------------  | ---------- | -----------------------------  |
+| image          | string     | null: false                    |
+| product_name   | string     | null: false                    |
+| text           | string     | null: false                    |
+| category       | string     | null: false                    |
+| product_status | string     | null: false                    |
+| burden         | string     | null: false                    |
+| area           | string     | null: false                    |
+| ship_day       | string     | null: false                    |
+| price          | string     | null: false                    |
+| buy_id         | references | null: false, foreign_key: true |
+| user_id        | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -37,13 +46,16 @@
 ### Association
 - belong_to :item
 - belong_to :user
+- has_one   :ship_add
 
 ## ship_adds テーブル
 
-| Column     | Type       | Options                        |
-| ---------- | ---------- | ------------------------------ |
-| street_add | string     | null: false                    |
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| postal_code  | string     | null: false                    |
+| street_add   | string     | null: false                    |
+| phone_number | string     | null: false                    |
 
 ### Association
 
-- belong_to :street_add
+- belong_to :buy
