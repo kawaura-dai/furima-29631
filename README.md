@@ -34,8 +34,8 @@
 
 ### Association
 
-- belong_to :user
-- has_one   :buy
+- belongs_to :user
+- has_one    :buy
 
 ## buys テーブル
 
@@ -45,9 +45,9 @@
 | user      | references | null: false, foreign_key: true |
 
 ### Association
-- belong_to :item
-- belong_to :user
-- has_one   :ship_add
+- belongs_to :item
+- belongs_to :user
+- has_one    :ship_add
 
 ## ship_adds テーブル
 
@@ -62,4 +62,4 @@
 | buy          | references | null: false, foreign_key: true |
 ### Association
 
-- belong_to :buy
+- belongs_to :buy
