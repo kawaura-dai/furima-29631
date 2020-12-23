@@ -1,32 +1,22 @@
 require 'rails_helper'
 
-  describe User do
-    before do
-      @user = FactoryBot.build(:user)
-    end
+RSpec.describe User, type: :model do
+  before do
+    @user = FactoryBot.build(:user)
+  end
 
     describe 'ユーザー新規登録' do
+
       context '新規登録が成功' do
-        it "nicknameとemail、passwordとpassword_confirmationが必須" do
+        it "空白がないのが必須" do
+          user = FactoryBot.build(:user)
           expect(@user).to be_valid
         end
-
-        it "誕生日が必須" do
-          @user.birthday = "1943-06-15"
-          expect(@user).to be_valid
-        end
-
-        it "passwordが6文字以上で半角数字登録" do
-          @user.password = "abc123"
-          @user.password_confirmation = "abc123"
-          expect(@user).to be_valid 
-        end
-
       end
 
       context '新規登録が失敗' do
         it "nicknameが空だと登録できない" do
-          @user.nickname = ''
+          @user.nickname = nil
           @user.valid?
           expect(@user.errors.full_messages).to include("Nickname can't be blank")
         end
@@ -60,28 +50,28 @@ require 'rails_helper'
 
         it "passwordが存在してもpassword_confirmationが空では登録できない" do
           @user.password = "00000123"
-          @user.password_confimarion = ""
+          @user.password_confirmation = ""
           @user.valid?
-          expect(@user.errors.full_messages).to include("Password_confimation can't be blank")
+          expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
         end
 
-        it "passwordが半角英語のみ"
+        it "passwordが半角英語のみ" do
           @user.password = 'aaaaaaa'
           @user.password_confirmation = 'aaaaaaa'
           @user.valid?
-          expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
+          expect(@user.errors.full_messages).to include("Password is invalid")
         end
-        it "ユーザー本名が全角でない"
+        it "ユーザー本名が全角でない" do
           @user.first_name = "aaa"
           @user.last_name = "aaa"
           @user.valid?
-          expect(@user.errors.full_messages).to include("Name is only 全角")
+          expect(@user.errors.full_messages).to include("First name is invalid")
         end
-        it "ユーザー本名（ふりがな）がカタカナでない"
+        it "ユーザー本名（ふりがな）がカタカナでない" do
           @user.first_name_furi = "aaa"
           @user.last_name_furi = "aaa"
           @user.valid?
-          expect(@user.errors.full_messages).to include("Name is only カタカナ")
+          expect(@user.errors.full_messages).to include("First name furi is invalid")
         end
       end
     end
