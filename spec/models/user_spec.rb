@@ -35,6 +35,12 @@ RSpec.describe User, type: :model do
           expect(another_user.errors.full_messages).to include("Email has already been taken")
         end
 
+        it "emailに@がつかないと登録できない" do
+          @user.email = "sample12345.sample12345.com"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Email is invalid")
+        end
+
         it "passwordが空では登録できない" do
          @user.password = ""
          @user.valid?
@@ -61,18 +67,51 @@ RSpec.describe User, type: :model do
           @user.valid?
           expect(@user.errors.full_messages).to include("Password is invalid")
         end
+
         it "ユーザー本名が全角でない" do
           @user.first_name = "aaa"
           @user.last_name = "aaa"
           @user.valid?
           expect(@user.errors.full_messages).to include("First name is invalid")
         end
+
+        it "苗字がないと登録できない" do
+          @user.last_name = ""
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Last name can't be blank")
+        end
+
+        it "苗字のふりがながないと登録できない" do
+          @user.last_name_furi = ""
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Last name furi can't be blank")
+        end
+
+        it "名前がないと登録できない" do
+          @user.first_name = ""
+          @user.valid?
+          expect(@user.errors.full_messages).to include("First name can't be blank")
+        end
+
+        it "名前のふりがながないと登録できない" do
+          @user.first_name_furi = ""
+          @user.valid?
+          expect(@user.errors.full_messages).to include("First name furi can't be blank", "First name furi is invalid")
+        end
+
         it "ユーザー本名（ふりがな）がカタカナでない" do
           @user.first_name_furi = "aaa"
           @user.last_name_furi = "aaa"
           @user.valid?
           expect(@user.errors.full_messages).to include("First name furi is invalid")
         end
+        
+        it "誕生日が空だと登録できない" do
+          @user.birthday = ""
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Birthday can't be blank")
+        end
+
       end
     end
   end
