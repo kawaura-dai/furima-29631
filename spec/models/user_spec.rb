@@ -9,7 +9,6 @@ RSpec.describe User, type: :model do
 
       context '新規登録が成功' do
         it "空白がないのが必須" do
-          user = FactoryBot.build(:user)
           expect(@user).to be_valid
         end
       end
@@ -68,11 +67,16 @@ RSpec.describe User, type: :model do
           expect(@user.errors.full_messages).to include("Password is invalid")
         end
 
-        it "ユーザー本名が全角でない" do
+        it "ユーザー名前が全角でない" do
           @user.first_name = "aaa"
-          @user.last_name = "aaa"
           @user.valid?
           expect(@user.errors.full_messages).to include("First name is invalid")
+        end
+
+        it "ユーザー苗字が全角でない" do
+          @user.last_name = "aaa"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Last name is invalid")
         end
 
         it "苗字がないと登録できない" do
@@ -99,13 +103,18 @@ RSpec.describe User, type: :model do
           expect(@user.errors.full_messages).to include("First name furi can't be blank", "First name furi is invalid")
         end
 
-        it "ユーザー本名（ふりがな）がカタカナでない" do
+        it "ユーザー名前（ふりがな）がカタカナでない" do
           @user.first_name_furi = "aaa"
-          @user.last_name_furi = "aaa"
           @user.valid?
           expect(@user.errors.full_messages).to include("First name furi is invalid")
         end
         
+        it "ユーザー苗字（ふりがな）がカタカナでない" do
+          @user.last_name_furi = "aaa"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Last name furi is invalid")
+        end
+
         it "誕生日が空だと登録できない" do
           @user.birthday = ""
           @user.valid?

@@ -6,10 +6,12 @@ class User < ApplicationRecord
   has_many :items
   has_many :buys
 
-  validates :nickname, presence: true
-  validates :birthday, presence: true
-  validates :email, presence: true
- 
+  with_options presence: true do
+  validates :nickname
+  validates :birthday
+  validates :email
+  end 
+  
   validates :password, presence: true, length: { minimum: 6 },
       format: {
           with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i} 
