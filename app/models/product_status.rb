@@ -6,8 +6,8 @@ class ProductStatus < ActiveHash::Base
     { id: 4, name: '目立った汚れ、キズはなし' },
     { id: 5, name: 'やや汚れ、キズがあり' },
     { id: 6, name: '汚れ、キズがあり' },
-    { id: 7, name: '全体的に状態が悪い' },
-  
+    { id: 7, name: '全体的に状態が悪い' }
+
   ]
 
   include ActiveHash::Associations

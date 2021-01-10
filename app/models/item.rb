@@ -1,5 +1,4 @@
 class Item < ApplicationRecord
-
   belongs_to :user
   has_one    :buy
   has_one_attached :image
@@ -18,8 +17,8 @@ class Item < ApplicationRecord
     validates :burden_id
     validates :prefecture_id
     validates :ship_day_id
-    validates :price
     validates :image
-    end 
-  validates :user, presence: true
+  end
+  validates :price, presence: true, format: { with: /\A[0-9]+\z/ },
+                    numericality: { greater_than_or_equal_to: 300 }, length: { maximum: 7 }
 end

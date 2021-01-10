@@ -1,7 +1,5 @@
 class BrewController < ApplicationController
-  def install
-  end
+  def install; end
 
-  def imagemagick
-  end
+  def imagemagick; end
 end

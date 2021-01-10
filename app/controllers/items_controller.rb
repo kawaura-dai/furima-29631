@@ -1,27 +1,26 @@
 class ItemsController < ApplicationController
- def index
-   @users = User.all
- end
-
- def index
-  @items = Item.all
-end
-
- def new
-  @item = Item.new
- end
-
- def create
-  if Items.create(item_params)
-    redirect_to root_path
-  else
-    render :new
+  
+  def index
+   # @items = Item.all
   end
- end
 
- private
+  def new
+    @item = Item.new
+  end
 
- def item_params
-  params.require(:item).permit(:content, :image)
- end
+  def create
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def item_params
+    
+    params.require(:item).permit(:image, :product_name, :text, :category_id, :product_status_id, :burden_id, :prefecture_id, :ship_day_id, :price).merge(user_id: current_user.id)
+  end
 end
