@@ -29,34 +29,34 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Text can't be blank")
     end
 
-    it 'category_idがないと出品不可' do
-      @item.category_id = nil
+    it 'category_idが１だと出品不可' do
+      @item.category_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Category can't be blank")
+      expect(@item.errors.full_messages).to include("Category must be other than 1")
     end
 
-    it 'product_status_idがないと出品不可' do
-      @item.product_status_id = nil
+    it 'product_status_idが１だと出品不可' do
+      @item.product_status_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Product status can't be blank")
+      expect(@item.errors.full_messages).to include("Product status must be other than 1")
     end
 
-    it 'burden_idがないと出品不可' do
-      @item.burden_id = nil
+    it 'burden_idが１だと出品不可' do
+      @item.burden_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Burden can't be blank")
+      expect(@item.errors.full_messages).to include("Burden must be other than 1")
     end
 
-    it 'prefecture_idがないと出品不可' do
-      @item.prefecture_id = nil
+    it 'prefecture_idが１だと出品不可' do
+      @item.prefecture_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
     end
 
-    it 'ship_day_idがないと出品不可' do
-      @item.ship_day_id = nil
+    it 'ship_day_idが１だと出品不可' do
+      @item.ship_day_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Ship day can't be blank")
+      expect(@item.errors.full_messages).to include("Ship day must be other than 1")
     end
 
     it 'priceがないと出品不可' do
@@ -69,6 +69,12 @@ RSpec.describe Item, type: :model do
       @item.price = 200
       @item.valid?
       expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+    end
+
+    it 'priceが10000000以上で出品不可' do
+      @item.price = 10000000
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is too long (maximum is 7 characters)")
     end
   end
 end
