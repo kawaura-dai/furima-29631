@@ -76,5 +76,17 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Price is too long (maximum is 7 characters)")
     end
+
+    it 'priceが全角で出品不可' do
+      @item.price = ３００
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is too long (maximum is 7 characters)")
+    end
+
+    it 'priceが英字で出品不可' do
+      @item.price = abc
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is too long (maximum is 7 characters)")
+    end
   end
 end
