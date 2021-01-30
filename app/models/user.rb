@@ -13,9 +13,9 @@ class User < ApplicationRecord
   end
 
   validates :password, presence: true, length: { minimum: 6 },
-                       format: {
-                         with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
-                       }
+   format: {
+    with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
+   }
 
   with_options presence: true, format: {
     with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/

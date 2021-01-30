@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_11_122931) do
+ActiveRecord::Schema.define(version: 2021_01_24_062909) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -57,6 +57,19 @@ ActiveRecord::Schema.define(version: 2021_01_11_122931) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "ship_adds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "prefecture_id", null: false
+    t.string "municipality", null: false
+    t.string "building_name"
+    t.string "postal_code", null: false
+    t.string "street_add", null: false
+    t.string "phone_number", null: false
+    t.bigint "buy_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["buy_id"], name: "index_ship_adds_on_buy_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "first_name_furi", null: false
@@ -79,4 +92,5 @@ ActiveRecord::Schema.define(version: 2021_01_11_122931) do
   add_foreign_key "buys", "items"
   add_foreign_key "buys", "users"
   add_foreign_key "items", "users"
+  add_foreign_key "ship_adds", "buys"
 end
